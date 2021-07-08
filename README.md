@@ -38,6 +38,7 @@ requirements are listed in the [`Vagrantfile`](vagrant/Vagrantfile).
 
 * a recent version of [jq](https://stedolan.github.io/jq/).
 
+* the `bsdtar` command (you may have it already), the ubuntu package is `libarchive-tools`
 [Vagrant installed]: https://docs.vagrantup.com/v2/installation/index.html
 
 Install the AWS plugin for Vagrant:
@@ -46,18 +47,17 @@ Install the AWS plugin for Vagrant:
 vagrant plugin install vagrant-aws
 ```
 
-* provide AWS access keys as environment variables:
+* provide AWS access keys:
 
+This is handled by the GDS CLI, for example:
+```sh
+gds aws paas-dev-admin -- make dev magic
 ```
-export AWS_ACCESS_KEY_ID=XXXXXXXXXX
-export AWS_SECRET_ACCESS_KEY=YYYYYYYYYY
-export AWS_SESSION_TOKEN=ZZZZZZZZZZ # if using STS
-```
-And optionally:
-
-```
+But do set your region:
+```sh
 export AWS_DEFAULT_REGION=eu-west-1
 ```
+
 
 The access keys are only required to spin up *Concourse Lite*. From
 that point on they won't be required (except by manual actions) as all the
@@ -68,7 +68,7 @@ these are defined in the repo [aws-account-wide-terraform][]
 [instance profiles]: http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html
 [aws-account-wide-terraform]: https://github.com/alphagov/paas-aws-account-wide-terraform
 
-* Declare your environment name using the variable DEPLOY_ENV.
+* Declare your environment name using the variable DEPLOY_ENV (max length 8).
 
 ```
 $ export DEPLOY_ENV=environment-name
